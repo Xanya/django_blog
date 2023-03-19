@@ -1,0 +1,32 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="widget widget-blog">
+            <div class="widget-blog-cover">
+                <img src="{{ post.image.url }}" alt="image post">
+            </div>
+            <div class="widget-blog-author">
+                <div class="widget-blog-author-image">
+                    <a href="{% url 'user-posts' post.author.username %}"><img src="{{ object.author.profile.image.url }}" alt="image post"></a>
+                </div>
+                <div class="widget-blog-author-info">
+                    <h5 class="m-t-0 m-b-1">{{ object.author }}</h5>
+                    <p class="text-muted m-0 f-s-11">{{ object.date_posted|date:"d F, Y" }}</p>
+                </div>
+                {% if user == object.author %}
+                    <a class="btn btn-outline-info" href="{% url 'post-update' object.id %}">Update</a>
+                    <a class="btn btn-danger" href="{% url 'post-delete' object.id %}">Delete</a>
+                {% endif %}
+            </div>
+            <div class="widget-blog-content">
+                <h5>{{ object.title }}</h5>
+                <p>
+                    {{ object.description }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
